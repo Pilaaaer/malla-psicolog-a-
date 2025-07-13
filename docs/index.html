@@ -21,7 +21,6 @@
     .materia {
       display: block;
       margin: 5px 0;
-      cursor: pointer;
     }
     .tachada {
       text-decoration: line-through;
@@ -30,42 +29,47 @@
   </style>
 </head>
 <body>
-  <h1>Malla Curricular Psicología - Udelar</h1>
+  <h1>Malla Curricular de Psicología (1º a 4º semestre)</h1>
 
   <div class="semestre">
-    <h2>1er semestre</h2>
-    <label class="materia"><input type="checkbox"> Epistemología</label>
-    <label class="materia"><input type="checkbox"> Psicología General</label>
-    <label class="materia"><input type="checkbox"> Educación y Subjetividad</label>
-    <label class="materia"><input type="checkbox"> Neurobiología del desarrollo</label>
-  </div>
-
-  <div class="semestre">
-    <h2>2do semestre</h2>
+    <h2>1er Semestre</h2>
     <label class="materia"><input type="checkbox"> Historia de la Psicología</label>
-    <label class="materia"><input type="checkbox"> Neurofisiología</label>
-    <label class="materia"><input type="checkbox"> Psicología del Desarrollo</label>
-    <label class="materia"><input type="checkbox"> Psicología Social</label>
+    <label class="materia"><input type="checkbox"> Psicología General</label>
+    <label class="materia"><input type="checkbox"> Introducción a la Filosofía</label>
+    <label class="materia"><input type="checkbox"> Biología Humana</label>
+    <label class="materia"><input type="checkbox"> Problemas Filosóficos</label>
   </div>
 
   <div class="semestre">
-    <h2>3er semestre</h2>
-    <label class="materia"><input type="checkbox"> Psicología, Sujeto y Aprendizaje</label>
-    <label class="materia"><input type="checkbox"> Psicología Institucional</label>
-    <label class="materia"><input type="checkbox"> Psicología del Trabajo</label>
+    <h2>2do Semestre</h2>
+    <label class="materia"><input type="checkbox"> Teoría Psicoanalítica 1</label>
+    <label class="materia"><input type="checkbox"> Psicología del Desarrollo 1</label>
+    <label class="materia"><input type="checkbox"> Neurobiología</label>
+    <label class="materia"><input type="checkbox"> Lógica</label>
+    <label class="materia"><input type="checkbox"> Epistemología</label>
+  </div>
+
+  <div class="semestre">
+    <h2>3er Semestre</h2>
+    <label class="materia"><input type="checkbox"> Teoría Psicoanalítica 2</label>
+    <label class="materia"><input type="checkbox"> Psicología del Desarrollo 2</label>
+    <label class="materia"><input type="checkbox"> Fundamentos de Psicología Cognitiva</label>
+    <label class="materia"><input type="checkbox"> Psicología Social 1</label>
     <label class="materia"><input type="checkbox"> Métodos y Técnicas Cuantitativas</label>
   </div>
 
   <div class="semestre">
-    <h2>4to semestre</h2>
+    <h2>4to Semestre</h2>
+    <label class="materia"><input type="checkbox"> Teoría Psicoanalítica 3</label>
+    <label class="materia"><input type="checkbox"> Psicología, Sujeto y Aprendizaje</label>
     <label class="materia"><input type="checkbox"> Métodos y Técnicas Cualitativas</label>
-    <label class="materia"><input type="checkbox"> Psicopatología</label>
-    <label class="materia"><input type="checkbox"> Psicología Clínica</label>
-    <label class="materia"><input type="checkbox"> Psicología y Salud</label>
+    <label class="materia"><input type="checkbox"> Psicología Social 2</label>
+    <label class="materia"><input type="checkbox"> Psicología y Cultura</label>
   </div>
 
   <script>
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
     checkboxes.forEach(chk => {
       chk.addEventListener('change', () => {
         chk.parentElement.classList.toggle('tachada', chk.checked);
@@ -75,20 +79,18 @@
 
     function saveState() {
       const estados = Array.from(checkboxes).map(chk => chk.checked);
-      localStorage.setItem('estadoMalla', JSON.stringify(estados));
+      localStorage.setItem('estadoMaterias', JSON.stringify(estados));
     }
 
-    function cargarEstado() {
-      const estados = JSON.parse(localStorage.getItem('estadoMalla') || "[]");
-      estados.forEach((estado, i) => {
-        if (estado) {
-          checkboxes[i].checked = true;
-          checkboxes[i].parentElement.classList.add('tachada');
-        }
+    function loadState() {
+      const estados = JSON.parse(localStorage.getItem('estadoMaterias') || "[]");
+      checkboxes.forEach((chk, i) => {
+        chk.checked = estados[i];
+        chk.parentElement.classList.toggle('tachada', chk.checked);
       });
     }
 
-    cargarEstado();
+    loadState();
   </script>
 </body>
 </html>
